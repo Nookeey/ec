@@ -49,11 +49,9 @@ import ClearSpacer from '@/components/email/ClearSpacer'
 import OneColumnText from '@/components/email/OneColumnText'
 import Footer from '@/components/email/Footer'
 
-import ButtonModule from '@/components/ui/ButtonModule';
-
 export default {
   components: {
-    Sidebar, Preheder, Header, HeroImage, OneColumnTextPlusButton, BackgroundImageWithText, TwoEvenColumns, ThreeEvenColumns, ThumbnailLeftTextRight, ThumbnailRightTextLeft, ClearSpacer, OneColumnText, Footer, ButtonModule,
+    Sidebar, Preheder, Header, HeroImage, OneColumnTextPlusButton, BackgroundImageWithText, TwoEvenColumns, ThreeEvenColumns, ThumbnailLeftTextRight, ThumbnailRightTextLeft, ClearSpacer, OneColumnText, Footer,
   },
   data () {
     return {
@@ -78,6 +76,23 @@ export default {
       this.moduleConfig = moduleConfig
     }
   }
+  /*
+    TODO:
+    Preheder
+    Header
+    HeroImage
+    BackgroundImageWithText
+    ClearSpacer
+    Footer
+
+    DONE:
+    OneColumnTextPlusButton
+    TwoEvenColumns
+    ThreeEvenColumns
+    ThumbnailLeftTextRight
+    ThumbnailRightTextLeft
+    OneColumnText
+  */
 }
 </script>
 

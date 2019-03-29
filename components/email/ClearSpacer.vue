@@ -3,7 +3,7 @@
     <td aria-hidden="true" height="40" style="font-size: 0px; line-height: 0px;">
       &nbsp;
     </td>
-    <ButtonModule @mouseover="showButton=true" v-if="showButton" @removeModule="$emit('removeModule', id)"/>
+    <!-- <ButtonModule @mouseover="showButton=true" v-if="showButton" @removeModule="$emit('removeModule', id)"/> -->
   </tr>
 </template>
 

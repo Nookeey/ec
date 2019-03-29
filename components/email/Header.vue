@@ -1,10 +1,10 @@
 <template>
-	<tr @mouseover="showButton=true" @mouseleave="hideButton">
-		<td style="padding: 20px 0; text-align: center">
-			<img src="https://via.placeholder.com/200x50" width="200" height="50" alt="alt_text" border="0" style="height: auto; background: #dddddd; font-family: sans-serif; font-size: 15px; line-height: 15px; color: #555555;">
-		</td>
-    <ButtonModule @mouseover="showButton=true" v-if="showButton" @removeModule="$emit('removeModule', id)"/>
-  </tr>
+    <tr @mouseover="showButton=true" @mouseleave="hideButton">
+        <td bgcolor="#ffffff" style="padding: 10px 15px 10px; text-align: center;">
+            <h1 style="margin: 0; font-family: Open sans condensed; font-size: 12px; color: #505050; text-decoration: underline; font-weight: normal;"><a href="$preview$" style="color: #505050;">Kliknij tutaj, jeśli mail nie wyświetla się poprawnie</a></h1>
+        </td>
+    <!-- <ButtonModule @mouseover="showButton=true" v-if="showButton" @removeModule="$emit('removeModule', id)"/> -->
+    </tr>
 </template>
 
 <script>

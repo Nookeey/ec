@@ -31,62 +31,74 @@
         <div :class="[ { active: isActiveModule('styles') }, 'modules-wrapper styles']">
           <ul>
 
-            <li v-for="(value, key, index) in moduleConfig" :key="index">
+            <div v-for="(value, key, index) in moduleConfig" :key="index">
 
-              <div v-if="key === 'td' || key === 'ul'">
-                <div v-for="(val, key, index) in value" :key="index" style="padding-bottom: 50px">
-                  <div v-for="(v, key, index) in val" :key="index" class="form-control">
-                      <span>{{ key }}</span>
-                      <input type="text" v-model="val[key]">
-                  </div>
+              <div v-if="key === 'td' || key === 'ul'" class="selector-wrapper">
+                <h6>{{ key }}</h6>
+                <div v-for="(val, key, index) in value" :key="index" class="style-wrapper">
+                  <h6 v-if="key !== 'style'">{{ key }}</h6>
+                  <li v-for="(v, key, index) in val" :key="index" class="form-control">
+                    <span class="style-title">{{ key }}</span>
+                    <input class="style-input" type="text" v-model="val[key]">
+                  </li>
                 </div>
               </div>
-
-              <div v-if="key === 'h1' || key === 'p'">
-                <div v-for="(val, key, index) in value" :key="index" class="form-control">
-                  <textarea v-if="key === 'text'" name="" id="" cols="30" rows="10" v-model="value[key]"></textarea>
-                  <div v-if="key === 'style'">
-                    <div v-for="(v, key, index) in val" :key="index" class="form-control">
-                      <span>{{ key }}</span>
-                      <input type="text" v-model="val[key]">
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- <div v-if="key === 'ul'">
+              
+              <div v-if="key === 'h' || key === 'p' || key == 'button'" class="selector-wrapper">
+                <h6>{{ key }}</h6>
                 <div v-for="(val, key, index) in value" :key="index">
+                  <h6>{{ key }}</h6>
                   <div v-for="(v, key, index) in val" :key="index">
-                    <div class="form-control">
-                      <span>{{ key }}</span>
-                      <input type="text" v-model="val[key]">
+                    <textarea v-if="key === 'text'" name="" id="" cols="30" rows="5" v-model="val[key]"></textarea>
+                    <div v-if="key === 'style'" class="style-wrapper">
+                      <li v-for="(s, key, index) in v" :key="index" class="form-control">
+                        <span class="style-title">{{ key }}</span>
+                        <input class="style-input" type="text" v-model="v[key]">
+                      </li>
                     </div>
                   </div>
                 </div>
-              </div> -->
+              </div>
 
-              <div v-if="key === 'li'">
+              <div v-if="key === 'li'" class="selector-wrapper">
+                <h6>{{ key }}</h6>
                 <div v-for="(val, key, index) in value" :key="index">
                   <div v-if="key === 'text'">
                     <div v-for="(v, key, index) in val" :key="index">
-                      <div class="form-control">
-                        <span>{{ key }}</span>
-                        <input type="text" v-model="val[key]">
-                      </div>
+                      <li class="form-control">
+                        <span class="style-title">li_{{ index }}</span>
+                        <textarea class="li-textarea" name="" id="" cols="10" rows="3" v-model="val[key]"></textarea>
+                      </li>
                     </div>
                   </div>
                   <div v-if="key === 'style'">
-                    <div v-for="(v, key, index) in val" :key="index">
-                      <div class="form-control">
-                        <span>{{ key }}</span>
-                        <input type="text" v-model="val[key]">
-                      </div>
+                    <div v-for="(v, key, index) in val" :key="index" class="style-wrapper">
+                      <li class="form-control">
+                        <span class="style-title">{{ key }}</span>
+                        <input class="style-input" type="text" v-model="val[key]">
+                      </li>
                     </div>
                   </div>
                 </div>
               </div>
 
-            </li>
+              <div v-if="key === 'img'" class="selector-wrapper">
+                <h6>{{ key }}</h6>
+                <div v-for="(val, key, index) in value" :key="index">
+                  <h6>{{ key }}</h6>
+                  <div v-for="(v, key, index) in val" :key="index">
+                    <img v-if="key == 'src'" :src="val['src']" :alt="val['alt']" class="img-prev">
+                    <div v-if="key === 'style'" class="style-wrapper">
+                      <li v-for="(s, key, index) in v" :key="index" class="form-control">
+                        <span class="style-title">{{ key }}</span>
+                        <input class="style-input" type="text" v-model="v[key]">
+                      </li>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
 
           </ul>
         </div>
@@ -152,7 +164,7 @@ export default {
   nav ul.dropdown-contnet li.active { border-left: 4px solid #68c0b0; }
 
 
-	.modules-wrapper { width: 300px; height: 100%; background: #2b2e33; position: fixed; top: 0; left: -50px; transition: all .3s ease; overflow-y: scroll; z-index: 1; }
+	.modules-wrapper { width: 300px; height: 100%; background: #222528; position: fixed; top: 0; left: -50px; transition: all .3s ease; overflow-y: scroll; z-index: 1; }
 	.modules-wrapper.active { left: 250px; }
 
 
@@ -163,6 +175,15 @@ export default {
 
   .styles ul { margin: 0; padding: 15px; }
 	.styles li { color: #828282; list-style: none; }
-	.styles textarea { width: 100%; resize: none; }
-
+	.styles textarea { width: 100%; resize: none; border-radius: 6px; border: none; padding: 6px; }
+  .styles h6 { color: #ffffff; font-weight: 600; }
+  .styles .style-wrapper h6 { margin: 0 0 .5em 0; }
+  .styles li.form-control { display: flex; align-items: center; justify-content: space-between; margin-bottom: .7em; }
+  .styles span.style-title { font-size: 12px; }
+  .styles input.style-input { font-size: 10px; width: 120px; border-radius: 12px; border: none; padding: 4px 6px; text-align: center; background: #ececec; }
+  .styles .selector-wrapper { margin: 2em 0; border-bottom: 1px solid #585858; }
+  .styles .style-wrapper { margin: 2em 0; }
+  .styles .li-textarea { width: 85% !important; }
+  .styles .img-prev { display: block; margin: 0 auto; max-width: 140px; }
+  
 </style>

@@ -16,7 +16,7 @@
         </table>
       </div>
     </td>
-    <ButtonModule @mouseover="showButton=true" v-if="showButton" @removeModule="$emit('removeModule', id)"/>
+    <!-- <ButtonModule @mouseover="showButton=true" v-if="showButton" @removeModule="$emit('removeModule', id)"/> -->
   </tr>
 </template>
 

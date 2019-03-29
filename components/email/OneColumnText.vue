@@ -1,16 +1,16 @@
 <template>
   <tr @mouseover="showButton=true" @mouseleave="hideButton" @click="$emit('emitModuleConfig', moduleConfig)">
-    <td :style="moduleConfig.td.style_1">
+    <td :style="moduleConfig.td.td_style_1">
       <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
         <tr>
-          <td :style="moduleConfig.td.style_2">
-            <p :style="moduleConfig.p.style" v-html="moduleConfig.p.text"/>
+          <td :style="moduleConfig.td.td_style_2">
+            <p :style="moduleConfig.p.p_1.style" v-html="moduleConfig.p.p_1.text"/>
           </td>
         </tr>
       </table>
     </td>
     
-    <ButtonModule @mouseover="showButton=true" v-if="showButton" @removeModule="$emit('removeModule', id)"/>
+    <!-- <ButtonModule @mouseover="showButton=true" v-if="showButton" @removeModule="$emit('removeModule', id)"/> -->
   </tr>
 </template>
 
@@ -31,10 +31,10 @@ export default {
       showButton: false,
       moduleConfig: {
         td: {
-          style_1: {
+          td_style_1: {
             backgroundColor: '#ffffff',
           },
-          style_2: {
+          td_style_2: {
             margin: '',
             padding: '20px',
             fontFamily: 'sans-serif',
@@ -45,8 +45,10 @@ export default {
           },
         },
         p: {
-          text: 'Maecenas sed ante pellentesque, posuere leo id, eleifend dolor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent laoreet malesuada cursus. Maecenas scelerisque congue eros eu posuere. Praesent in felis ut velit pretium lobortis rhoncus ut&nbsp;erat.',
-          style: {
+          p_1: {
+            text: 'Maecenas sed ante pellentesque, posuere leo id, eleifend dolor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent laoreet malesuada cursus. Maecenas scelerisque congue eros eu posuere. Praesent in felis ut velit pretium lobortis rhoncus ut&nbsp;erat.',
+            style: {
+            }
           }
         },
       },

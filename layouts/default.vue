@@ -29,7 +29,6 @@ div[style*="margin: 16px 0"] {
 /* What it does: Stops Outlook from adding extra spacing to tables. */
 table,
 td {
-  width: 100% !important;
   mso-table-lspace: 0pt !important;
   mso-table-rspace: 0pt !important;
 }

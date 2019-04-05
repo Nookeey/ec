@@ -1,7 +1,7 @@
 <template>
-    <tr @mouseover="showButton=true" @mouseleave="hideButton">
-      <td style="background-color: #ffffff;">
-        <img src="https://via.placeholder.com/1200x600" width="600" height="" alt="alt_text" border="0" style="width: 100%; max-width: 600px; height: auto; background: #dddddd; font-family: sans-serif; font-size: 15px; line-height: 15px; color: #555555; margin: auto; display: block;" class="g-img">
+    <tr @mouseover="showButton=true" @mouseleave="hideButton" @click="$emit('emitModuleConfig', moduleConfig)">
+      <td :style="moduleConfig.td.td_wrapper.style">
+        <img :src="moduleConfig.img.hero_img.src" :width="moduleConfig.img.hero_img.style.maxWidth" height="" alt="alt_text" border="0" :style="moduleConfig.img.hero_img.style" class="g-img">
       </td>
       <!-- <ButtonModule @mouseover="showButton=true" v-if="showButton" @removeModule="$emit('removeModule', id)"/> -->
     </tr>
@@ -22,6 +22,28 @@ export default {
   data () {
     return {
       showButton: false,
+      moduleConfig: {
+        td: {
+          td_wrapper: {
+            style: {
+              background: '#ffffff',
+            }
+          },
+        },
+        img: {
+          hero_img: {
+            src: 'https://via.placeholder.com/1200x600',
+            style: {
+              width: '100%',
+              maxWidth: '600px',
+              height: 'auto',
+              background: '#dddddd',
+              margin: 'auto',
+              display: 'block',
+            }
+          }
+        },
+      },
     }
   },
   methods: {
@@ -33,4 +55,3 @@ export default {
   }
 }
 </script>
-

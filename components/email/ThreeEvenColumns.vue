@@ -1,17 +1,17 @@
 <template>
   <tr @mouseover="showButton=true" @mouseleave="hideButton" @click="$emit('emitModuleConfig', moduleConfig)">
-    <td :style="moduleConfig.td.td_wrapper">
+    <td :style="moduleConfig.td.td_wrapper.style">
       <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
         <tr>
           <td valign="top" width="33.33%" class="stack-column-center">
             <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
               <tr>
-                <td :style="moduleConfig.td.td_img_1">
+                <td :style="moduleConfig.td.td_img_1.style">
                   <img :src="moduleConfig.img.img_1.src" :width="moduleConfig.img.img_1.style.maxWidth" height="" :alt="moduleConfig.img.img_1.alt" border="0" :style="moduleConfig.img.img_1.style">
                 </td>
               </tr>
               <tr>
-                <td :style="moduleConfig.td.td_text_1" class="center-on-narrow">
+                <td :style="[moduleConfig.td.td_text_1.style, { fontSize: moduleConfig.td.td_text_1.slider.fontSize+'px' }]" class="center-on-narrow">
                   <p :style="moduleConfig.p.p_1.style" v-html="moduleConfig.p.p_1.text"></p>
                 </td>
               </tr>
@@ -20,12 +20,12 @@
           <td valign="top" width="33.33%" class="stack-column-center">
             <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
               <tr>
-                <td :style="moduleConfig.td.td_img_2">
+                <td :style="moduleConfig.td.td_img_2.style">
                   <img :src="moduleConfig.img.img_2.src" :width="moduleConfig.img.img_2.style.maxWidth" height="" :alt="moduleConfig.img.img_2.alt" border="0" :style="moduleConfig.img.img_2.style">
                 </td>
               </tr>
               <tr>
-                <td :style="moduleConfig.td.td_text_2" class="center-on-narrow">
+                <td :style="[moduleConfig.td.td_text_2.style, { fontSize: moduleConfig.td.td_text_2.slider.fontSize+'px' }]" class="center-on-narrow">
                   <p :style="moduleConfig.p.p_2.style" v-html="moduleConfig.p.p_2.text"></p>
                 </td>
               </tr>
@@ -34,12 +34,12 @@
           <td valign="top" width="33.33%" class="stack-column-center">
             <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
               <tr>
-                <td :style="moduleConfig.td.td_img_3">
+                <td :style="moduleConfig.td.td_img_3.style">
                   <img :src="moduleConfig.img.img_3.src" :width="moduleConfig.img.img_3.style.maxWidth" height="" :alt="moduleConfig.img.img_3.alt" border="0" :style="moduleConfig.img.img_3.style">
                 </td>
               </tr>
               <tr>
-                <td :style="moduleConfig.td.td_text_3" class="center-on-narrow">
+                <td :style="[moduleConfig.td.td_text_3.style, { fontSize: moduleConfig.td.td_text_3.slider.fontSize+'px' }]" class="center-on-narrow">
                   <p :style="moduleConfig.p.p_3.style" v-html="moduleConfig.p.p_3.text"></p>
                 </td>
               </tr>
@@ -70,44 +70,64 @@ export default {
       moduleConfig: {
         td: {
           td_wrapper: {
-            padding: '10px',
-            backgroundColor: '#ffffff',
+            style: {
+              padding: '10px',
+              backgroundColor: '#ffffff',
+            }
           },
           td_img_1: {
-            padding: '10px',
-            textAlign: 'center',
+            style: {
+              padding: '10px',
+              textAlign: 'center',
+            }
           },
           td_text_1: {
-            fontFamily: 'sans-serif',
-            fontSize: '15px',
-            lineHeight: '20px',
-            color: '#555555',
-            padding: '0 10px 10px',
-            textAlign: 'left',
+            style: {
+              fontFamily: 'sans-serif',
+              lineHeight: '20px',
+              color: '#555555',
+              padding: '0 10px 10px',
+              textAlign: 'left',
+            },
+            slider: {
+              fontSize: '15',
+            }
           },
           td_img_2: {
-            padding: '10px',
-            textAlign: 'center',
+            style: {
+              padding: '10px',
+              textAlign: 'center',
+            }
           },
           td_text_2: {
-            fontFamily: 'sans-serif',
-            fontSize: '15px',
-            lineHeight: '20px',
-            color: '#555555',
-            padding: '0 10px 10px',
-            textAlign: 'left',
+            style: {
+              fontFamily: 'sans-serif',
+              lineHeight: '20px',
+              color: '#555555',
+              padding: '0 10px 10px',
+              textAlign: 'left',
+            },
+            slider: {
+              fontSize: '15',
+            }
           },
           td_img_3: {
-            padding: '10px',
-            textAlign: 'center',
+            style: {
+              padding: '10px',
+              textAlign: 'center',
+            }
           },
           td_text_3: {
-            fontFamily: 'sans-serif',
-            fontSize: '15px',
-            lineHeight: '20px',
-            color: '#555555',
-            padding: '0 10px 10px',
-            textAlign: 'left',
+            style: {
+              fontFamily: 'sans-serif',
+              lineHeight: '20px',
+              color: '#555555',
+              padding: '0 10px 10px',
+              textAlign: 'left',
+            },
+            slider: {
+              fontSize: '15',
+            }
           },
         },
         img: {

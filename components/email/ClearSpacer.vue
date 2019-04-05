@@ -1,6 +1,6 @@
 <template>
-  <tr @mouseover="showButton=true" @mouseleave="hideButton">
-    <td aria-hidden="true" height="40" style="font-size: 0px; line-height: 0px;">
+  <tr @mouseover="showButton=true" @mouseleave="hideButton" @click="$emit('emitModuleConfig', moduleConfig)">
+    <td aria-hidden="true" :height="moduleConfig.td.td_wrapper.style.height" style="font-size: 0px; line-height: 0px;">
       &nbsp;
     </td>
     <!-- <ButtonModule @mouseover="showButton=true" v-if="showButton" @removeModule="$emit('removeModule', id)"/> -->
@@ -22,6 +22,15 @@ export default {
   data () {
     return {
       showButton: false,
+      moduleConfig: {
+        td: {
+          td_wrapper: {
+            style: {
+              height: '40',
+            }
+          },
+        },
+      },
     }
   },
   methods: {

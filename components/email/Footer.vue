@@ -1,12 +1,12 @@
 <template>
-  <table align="center" role="presentation" cellspacing="0" cellpadding="0" border="0" width="600" style="margin: auto;"
-    class="email-container" @mouseover="showButton=true" @mouseleave="hideButton">
-     <tr>
-        <td valign="top" class="mcnTextBlockInner footer" style="background: #ffffff; padding: 15px 0;">
-          <center style="color: #999;"><!--<a href="$opt-out$">--> Jeśli nie chcesz już otrzymywać newslettera kliknij <a style="color: #999; text-decoration: underline;" href="$opt-out$" target="_blank">tutaj.</a></center>
-        </td>
-      </tr>
-  </table>
+  <tr @mouseover="showButton=true" @mouseleave="hideButton" @click="$emit('emitModuleConfig', moduleConfig)">
+    <td valign="top" class="mcnTextBlockInner footer" :style="moduleConfig.td.td_wrapper.style">
+      <center :style="moduleConfig.a.a_1.style">
+        <!--<a href="$opt-out$">-->
+        <a :style="moduleConfig.a.a_1.style" :href="moduleConfig.a.a_1.href" target="_blank" v-html="moduleConfig.a.a_1.text"></a>
+      </center>
+    </td>
+  </tr>
 </template>
 
 <script>
@@ -24,6 +24,26 @@ export default {
   data () {
     return {
       showButton: false,
+      moduleConfig: {
+        td: {
+          td_wrapper: {
+            style: {
+              background: '#ffffff',
+              padding: '15px 0',
+            }
+          }
+        },
+        a: {
+          a_1: {
+            text: 'Jeśli nie chcesz już otrzymywać newslettera kliknij tutaj.',
+            href: '$opt-out$',
+            style: {
+              color: '#999',
+              textDecoration: 'underline',
+            }
+          }
+        },
+      }
     }
   },
   methods: {

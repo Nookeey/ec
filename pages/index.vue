@@ -1,10 +1,14 @@
 <template>
   <section class="main-wrapper">
-    <Sidebar @moduleID="appendEmialComponent" :moduleConfig="moduleConfig" :modules="emailComponents"/>
+    <Sidebar
+      @moduleID="appendEmailComponent"
+      @emitShowModalAddStyle="modalShow = true"
+      :moduleConfig="moduleConfig"
+      :modules="emailComponents"
+      :checkedStyles="checkedStyles" />
 
-    <section id="email-body">
-      <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml"
-        xmlns:o="urn:schemas-microsoft-com:office:office">
+    <section ref="emailbody" id="email-body" @click="getEmailBody()">
+      <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
 
       <head>
         <meta charset="utf-8">
@@ -12,16 +16,24 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="x-apple-disable-message-reformatting">
         <title></title>
+
+        <style>
+          /* What it does: Remove spaces around the email design added by some email clients. */ /* Beware: It can remove the padding / margin and add a background color to the compose a reply window. */ html, body { margin: 0 auto !important; padding: 0 !important; height: 100% !important; width: 100% !important; } /* What it does: Stops email clients resizing small text. */ * { -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; } /* What it does: Centers email on Android 4.4 */ div[style*="margin: 16px 0"] { margin: 0 !important; } /* What it does: Stops Outlook from adding extra spacing to tables. */ table, td { mso-table-lspace: 0pt !important; mso-table-rspace: 0pt !important; } /* What it does: Fixes webkit padding issue. */ table { border-spacing: 0 !important; border-collapse: collapse !important; table-layout: fixed !important; margin: 0 auto !important; } /* What it does: Prevents Windows 10 Mail from underlining links despite inline CSS. Styles for underlined links should be inline. */ a { text-decoration: none; } /* What it does: Uses a better rendering method when resizing images in IE. */ img { -ms-interpolation-mode: bicubic; } /* What it does: A work-around for email clients meddling in triggered links. */ a[x-apple-data-detectors], /* iOS */ .unstyle-auto-detected-links a, .aBn { border-bottom: 0 !important; cursor: default !important; color: inherit !important; text-decoration: none !important; font-size: inherit !important; font-family: inherit !important; font-weight: inherit !important; line-height: inherit !important; } /* What it does: Prevents Gmail from changing the text color in conversation threads. */ .im { color: inherit !important; } /* What it does: Prevents Gmail from displaying a download button on large, non-linked images. */ .a6S { display: none !important; opacity: 0.01 !important; } /* If the above doesn't work, add a .g-img class to any image in question. */ img.g-img+div { display: none !important; } /* What it does: Removes right gutter in Gmail iOS app: https://github.com/TedGoas/Cerberus/issues/89  */ /* Create one of these media queries for each additional viewport size you'd like to fix */ /* iPhone 4, 4S, 5, 5S, 5C, and 5SE */ @media only screen and (min-device-width: 320px) and (max-device-width: 374px) { u~div .email-container { min-width: 320px !important; } } /* iPhone 6, 6S, 7, 8, and X */ @media only screen and (min-device-width: 375px) and (max-device-width: 413px) { u~div .email-container { min-width: 375px !important; } } /* iPhone 6+, 7+, and 8+ */ @media only screen and (min-device-width: 414px) { u~div .email-container { min-width: 414px !important; } } /* What it does: Hover styles for buttons */ .button-td, .button-a { transition: all 100ms ease-in; } .button-td-primary:hover, .button-a-primary:hover { background: #555555 !important; border-color: #555555 !important; } /* Media Queries */ @media screen and (max-width: 600px) { .email-container { width: 100% !important; margin: auto !important; } /* What it does: Forces table cells into full-width rows. */ .stack-column, .stack-column-center { display: block !important; width: 100% !important; max-width: 100% !important; direction: ltr !important; } /* And center justify these ones. */ .stack-column-center { text-align: center !important; } /* What it does: Generic utility class for centering. Useful for images, buttons, and nested tables. */ .center-on-narrow { text-align: center !important; display: block !important; margin-left: auto !important; margin-right: auto !important; float: none !important; } table.center-on-narrow { display: inline-block !important; } /* What it does: Adjust typography on small screens to improve readability */ .email-container p { font-size: 17px !important; } }
+        </style>
       </head>
 
-      <body width="100%"
-        style="margin: 0; padding: 0 !important; mso-line-height-rule: exactly; background-color: #222222;">
+      <body width="100%" style="margin: 0; padding: 0 !important; mso-line-height-rule: exactly; background-color: #ffffff;">
         <center style="width: 100%; background-color: #ffffff;">
           
           <Preheder v-if="emailConfig.preheder"/>
 
           <table align="center" role="presentation" cellspacing="0" cellpadding="0" border="0" :width="emailConfig.width" style="margin: auto;" class="email-container">
-            <component v-for="(component, index) in emailBody" :is="component" :key="index" :id="index" @removeModule="handelRemoveModule" @emitModuleConfig="handelConfig"/>
+            <component v-for="(component, index) in emailBody"
+              :is="component"
+              :key="index"
+              :id="index"
+              @removeModule="handelRemoveModule"
+              @emitModuleConfig="handelConfig" />
           </table>
 
         </center>
@@ -30,11 +42,14 @@
       </html>
     </section>
 
+    <ModalAddStyle v-if="modalShow" @closeModal="modalShow = false" @emitCheckedStyles="handelCheckedStyles"/>
+
   </section>
 </template>
 
 <script>
-import Sidebar from '@/components/sidebar/Sidebar'
+import Sidebar from '@/components/layout/Sidebar'
+import ModalAddStyle from '@/components/layout/ModalAddStyle'
 
 import Preheder from '@/components/email/Preheder'
 import Header from '@/components/email/Header'
@@ -49,23 +64,30 @@ import ClearSpacer from '@/components/email/ClearSpacer'
 import OneColumnText from '@/components/email/OneColumnText'
 import Footer from '@/components/email/Footer'
 
+import axios from 'axios'
+
 export default {
   components: {
-    Sidebar, Preheder, Header, HeroImage, OneColumnTextPlusButton, BackgroundImageWithText, TwoEvenColumns, ThreeEvenColumns, ThumbnailLeftTextRight, ThumbnailRightTextLeft, ClearSpacer, OneColumnText, Footer,
+    Sidebar, ModalAddStyle, Preheder, Header, HeroImage, OneColumnTextPlusButton, BackgroundImageWithText, TwoEvenColumns, ThreeEvenColumns, ThumbnailLeftTextRight, ThumbnailRightTextLeft, ClearSpacer, OneColumnText, Footer,
   },
   data () {
     return {
+      modalShow: false,
+      checkedStyles: [],
       moduleConfig: {},
       emailConfig: {
         preheder: false,
         width: 640,
       },
       emailComponents: ['Preheder', 'Header', 'HeroImage', 'OneColumnTextPlusButton', 'BackgroundImageWithText', 'TwoEvenColumns', 'ThreeEvenColumns', 'ThumbnailLeftTextRight', 'ThumbnailRightTextLeft', 'ClearSpacer', 'OneColumnText', 'Footer'],
-      emailBody: []
+      emailBody: [],
+      config: {
+        fileName: null,
+      }
     }
   },
   methods: {
-    appendEmialComponent (id) {
+    appendEmailComponent (id) {
       if (id === 0) this.emailConfig.preheder = !this.emailConfig.preheder
       else this.emailBody.push(this.emailComponents[id])
     },
@@ -74,33 +96,43 @@ export default {
     },
     handelConfig (moduleConfig = {}) {
       this.moduleConfig = moduleConfig
+    },
+    getEmailBody () {
+      axios.post(`http://ec-api.wbslawinski.civ.pl?a=gen`, {
+        body: this.$refs.emailbody.innerHTML,
+        fileName: this.config.fileName,
+      })
+      .then(response => {})
+      .catch(e => {
+        this.errors.push(e)
+      })
+    },
+    handelCheckedStyles(checkedStyles) {
+      this.checkedStyles = checkedStyles
     }
-  }
+  },
   /*
     TODO:
-    Preheder
-    Header
-    HeroImage
+    Preheder  
+    
+    DONE:
     BackgroundImageWithText
     ClearSpacer
     Footer
-
-    DONE:
+    Header
+    HeroImage
+    OneColumnText
     OneColumnTextPlusButton
-    TwoEvenColumns
     ThreeEvenColumns
     ThumbnailLeftTextRight
     ThumbnailRightTextLeft
-    OneColumnText
+    TwoEvenColumns
   */
 }
 </script>
 
 <style>
-  .main-wrapper {
-    display: flex;
-    flex-wrap: nowrap;
-  }
+  body { background: #222222; }
 
   #email-body { 
     display: block;

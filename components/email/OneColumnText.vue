@@ -1,9 +1,9 @@
 <template>
   <tr @mouseover="showButton=true" @mouseleave="hideButton" @click="$emit('emitModuleConfig', moduleConfig)">
-    <td :style="moduleConfig.td.td_style_1">
+    <td :style="moduleConfig.td.td_wrapper.style">
       <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
         <tr>
-          <td :style="moduleConfig.td.td_style_2">
+          <td :style="[moduleConfig.td.td_main.style, { fontSize: moduleConfig.td.td_main.slider.fontSize+'px' }]">
             <p :style="moduleConfig.p.p_1.style" v-html="moduleConfig.p.p_1.text"/>
           </td>
         </tr>
@@ -31,17 +31,23 @@ export default {
       showButton: false,
       moduleConfig: {
         td: {
-          td_style_1: {
-            backgroundColor: '#ffffff',
+          td_wrapper: {
+            style: {
+              backgroundColor: '#ffffff',
+            }
           },
-          td_style_2: {
-            margin: '',
-            padding: '20px',
-            fontFamily: 'sans-serif',
-            fontSize: '15px',
-            fontWeight: '400',
-            lineHeight: '20px',
-            color: '#000000',
+          td_main: {
+            style: {
+              margin: '',
+              padding: '20px',
+              fontFamily: 'sans-serif',
+              fontWeight: '400',
+              lineHeight: '20px',
+              color: '#000000',
+            },
+            slider: {
+              fontSize: '15',
+            }
           },
         },
         p: {

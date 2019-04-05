@@ -1,7 +1,9 @@
 <template>
-    <tr @mouseover="showButton=true" @mouseleave="hideButton">
-        <td bgcolor="#ffffff" style="padding: 10px 15px 10px; text-align: center;">
-            <h1 style="margin: 0; font-family: Open sans condensed; font-size: 12px; color: #505050; text-decoration: underline; font-weight: normal;"><a href="$preview$" style="color: #505050;">Kliknij tutaj, jeśli mail nie wyświetla się poprawnie</a></h1>
+    <tr @mouseover="showButton=true" @mouseleave="hideButton" @click="$emit('emitModuleConfig', moduleConfig)">
+        <td :style="moduleConfig.td.td_wrapper.style">
+            <h1 :style="moduleConfig.a.a_1.style">
+              <a href="$preview$" :style="[moduleConfig.a.a_1.style, { fontSize: moduleConfig.a.a_1.slider.fontSize+'px' }]" v-html="moduleConfig.a.a_1.text"></a>
+            </h1>
         </td>
     <!-- <ButtonModule @mouseover="showButton=true" v-if="showButton" @removeModule="$emit('removeModule', id)"/> -->
     </tr>
@@ -22,6 +24,33 @@ export default {
   data () {
     return {
       showButton: false,
+      moduleConfig: {
+        td: {
+          td_wrapper: {
+            style: {
+              background: '#ffffff',
+              padding: '10px 15px 10px',
+              textAlign: 'center',
+            }
+          },
+        },
+        a: {
+          a_1: {
+            text: 'Kliknij tutaj, jeśli mail nie wyświetla się poprawnie',
+            href: '$preview$',
+            style: {
+              margin: '0',
+              fontFamily: 'Open sans condensed',
+              color: '#505050',
+              textDecoration: 'underline',
+              fontWeight: 'normal',
+            },
+            slider: {
+              fontSize: '12',
+            }
+          }
+        },
+      },
     }
   },
   methods: {
